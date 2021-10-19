@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"math/rand"
-	"net/http"
 	"time"
 )
 var key = []byte("currencyTask")
@@ -24,23 +23,20 @@ func GenerateAPIkey() (string, error){
 	return tokenString, nil
 }
 
-func isAuthorized(endpoint func(http.ResponseWriter, *http.Request)) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Header["Token"] != nil {
-			token, err := jwt.Parse(r.Header["Token"][0], func(token *jwt.Token) (interface{}, error) {
-				if _,ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-					return nil, fmt.Errorf("error")
-				}
-				return key, nil
-			})
-			if err != nil {
-				fmt.Fprintf(w, err.Error())
-			}
-			if token.Valid {
-				endpoint(w,r)
-			}
+func isAuthorized(APIkey string) bool {
+	token, err := jwt.Parse(APIkey, func(token *jwt.Token) (interface{}, error) {
+		if _,ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("error")
 		}
+		return key, nil
 	})
+	if token.Valid{
+		return true
+	} else if err != nil {
+		return false
+	} else {
+		return false
+	}
 }
 
 func main() {
