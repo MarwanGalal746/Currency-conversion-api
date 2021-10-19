@@ -1,9 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gorilla/mux"
+	"log"
 	"math/rand"
+	"net/http"
 	"time"
 )
 var key = []byte("currencyTask")
@@ -30,17 +34,34 @@ func isAuthorized(APIkey string) bool {
 		}
 		return key, nil
 	})
+	if err != nil {
+		return false
+	}
 	if token.Valid{
 		return true
-	} else if err != nil {
-		return false
 	} else {
 		return false
 	}
 }
 
+func GetAPIkey(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "application/json")
+	resp := make(map[string]string)
+	apiKey, _ := GenerateAPIkey()
+	resp["API_KEY"]= apiKey
+	jsonResp, err := json.Marshal(resp)
+	if err != nil {
+		log.Fatalf("Error happened in JSON marshal. Err: %s", err)
+	}
+	w.Write(jsonResp)
+}
+
+
+
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	str, _ := GenerateAPIkey()
-	fmt.Println(str)
+	r := mux.NewRouter()
+	r.HandleFunc("/apikey", GetAPIkey).Methods("GET")
+	fmt.Printf("Starting server at port 8000\n")
+	log.Fatal(http.ListenAndServe(":8000", r))
 }
