@@ -82,7 +82,7 @@ func NewResponse(message string, status int) *Response {
 func GetCurrency(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	vars := mux.Vars(r)
-	api_key, _ := vars["API_key"]
+	api_key, _ := vars["api_key"]
 	if !isAuthorized(api_key) {
 		w.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(w).Encode(NewResponse("Invalid API key", http.StatusUnauthorized))
@@ -107,11 +107,12 @@ func GetCurrency(w http.ResponseWriter, r *http.Request) {
 func ConvertUSDtoEUR(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	vars := mux.Vars(r)
-	api_key, _ := vars["API_key"]
+	apiKey, _ := vars["api_key"]
 	usd, _ := vars["usd"]
 	usdFloat, _ := strconv.ParseFloat(usd,64)
 	fmt.Println(usdFloat)
-	if !isAuthorized(api_key) {
+	if !isAuthorized(apiKey) {
+		fmt.Println(apiKey)
 		w.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(w).Encode(NewResponse("Invalid API key", http.StatusUnauthorized))
 		return
@@ -135,7 +136,7 @@ func ConvertUSDtoEUR(w http.ResponseWriter, r *http.Request) {
 func ConvertEURtoUSD(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	vars := mux.Vars(r)
-	api_key, _ := vars["API_key"]
+	api_key, _ := vars["api_key"]
 	eur, _ := vars["eur"]
 	eurFloat, _ := strconv.ParseFloat(eur,64)
 	fmt.Println(eurFloat)
@@ -166,9 +167,9 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	r := mux.NewRouter()
 	r.HandleFunc("/apikey", GetAPIkey).Methods("GET")
-	r.HandleFunc("/currency_rate", GetCurrency).Methods("GET").Queries("api_key" , "{API_key}")
-	r.HandleFunc("/convert_usd", ConvertUSDtoEUR).Methods("GET").Queries("api_key" , "{API_key}" , "usd", "{usd}")
-	r.HandleFunc("/convert_eur", ConvertEURtoUSD).Methods("GET").Queries("api_key" , "{API_key}" , "eur", "{eur}")
-	fmt.Printf("Starting server at port 8000\n")
-	log.Fatal(http.ListenAndServe(":8000", r))
+	r.HandleFunc("/currency_rate", GetCurrency).Methods("GET").Queries("api_key" , "{api_key}")
+	r.HandleFunc("/convert_usd", ConvertUSDtoEUR).Methods("GET").Queries("api_key" , "{api_key}" , "usd", "{usd}")
+	r.HandleFunc("/convert_eur", ConvertEURtoUSD).Methods("GET").Queries("api_key" , "{api_key}" , "eur", "{eur}")
+	fmt.Printf("Starting server at port 8080\n")
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
