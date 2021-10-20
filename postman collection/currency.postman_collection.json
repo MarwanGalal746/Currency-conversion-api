@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "a4c2d8cf-86f1-410b-aff6-f9479565e2e1",
+		"name": "currency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Api key",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/apikey",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apikey"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "currency rate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/currency_rate?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJyYW5kIjozODYzMjMwMDR9.BgHGRY5_-jgT4xT7P1Qj8i7wIldh3zpXgp9QvmwR3B8",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"currency_rate"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJyYW5kIjozODYzMjMwMDR9.BgHGRY5_-jgT4xT7P1Qj8i7wIldh3zpXgp9QvmwR3B8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConvertUSDtoEUR",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/convert_usd?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJyYW5kIjozMTg3NDgxfQ.Mg8pw2xe6FQFvd2ia0y5xYUXp2FyEOBJ1n2-SiviAVE&usd=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"convert_usd"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJyYW5kIjozMTg3NDgxfQ.Mg8pw2xe6FQFvd2ia0y5xYUXp2FyEOBJ1n2-SiviAVE"
+						},
+						{
+							"key": "usd",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConvertEURtoUSD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/convert_eur?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJyYW5kIjozODYzMjMwMDR9.BgHGRY5_-jgT4xT7P1Qj8i7wIldh3zpXgp9QvmwR3B8&eur=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"convert_eur"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJyYW5kIjozODYzMjMwMDR9.BgHGRY5_-jgT4xT7P1Qj8i7wIldh3zpXgp9QvmwR3B8"
+						},
+						{
+							"key": "eur",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
